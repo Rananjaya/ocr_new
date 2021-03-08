@@ -30,13 +30,15 @@ function App() {
 
   const writeCsvToFile = async (myfile) => {
      
-    //let str = 'gfgfgfggfgf21/02/01 is my date and time';
+    //let str = 'jfhfh hfhhf 99.00 hfhfhfhfh hfhfhf';
     let str = myfile;
     
     let reco_text = str.match(/(0?[1-9]|[12]\d|30|31)[^\w\d\r\n:](0?[1-9]|1[0-2])[^\w\d\r\n:](\d{4}|\d{2})/g);
-     let reco_time = str.match(/^([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
+     let reco_time = str.match(/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/)
+     let amount = str.match(/^(\d{1,2})(,\d{2})*(,\d{1,3}){1}(\.\d{1,})?$/g)
 
      console.log("time >>",reco_time)
+     console.log("amount >>",amount)
     if(reco_text != null && reco_text != ""){
          console.log("your date and time is",reco_text)
      }else{
