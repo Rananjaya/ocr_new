@@ -28,8 +28,24 @@ function App() {
   });
 
 
-  const writeCsvToFile = async () => {
-    // let APP_NAME ="aaa"
+  const writeCsvToFile = async (myfile) => {
+     
+    //let str = 'gfgfgfggfgf21/02/01 is my date and time';
+    let str = myfile;
+    
+    let reco_text = str.match(/(0?[1-9]|[12]\d|30|31)[^\w\d\r\n:](0?[1-9]|1[0-2])[^\w\d\r\n:](\d{4}|\d{2})/g);
+     let reco_time = str.match(/^([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
+
+     console.log("time >>",reco_time)
+    if(reco_text != null && reco_text != ""){
+         console.log("your date and time is",reco_text)
+     }else{
+       console.log("reco text not found",reco_text)
+     }
+    //document.getElementById('out').value = reco_text;
+
+    console.log("res rana >>>",reco_text)
+
     const folderPath = `${RNFS.ExternalStorageDirectoryPath}/AirtelApp`;
     console.log("folder path ",folderPath)
     const folderExists = await RNFS.exists(folderPath);
@@ -38,7 +54,7 @@ function App() {
         await RNFS.mkdir(folderPath);
     }
 
-    let contents = text;
+    let contents = myfile;
     console.log("File Write",contents)
     const filePath = `${folderPath}/${moment().format('YYYYMMDDHHMMss')}.csv`;
     console.log("file path",filePath)
@@ -61,7 +77,15 @@ function App() {
         LANG_ENGLISH,
         tesseractOptions,
       );
+
+       
+
+
       setText(recognizedText);
+      writeCsvToFile(recognizedText);
+     
+       
+      // console.log("res for date time",res)
     } catch (err) {
       console.error(err);
       setText('');
@@ -81,7 +105,7 @@ function App() {
         console.error(err);
       }
     }
-    writeCsvToFile();
+    // writeCsvToFile();
   };
 
   const recognizeFromCamera = async (options = defaultPickerOptions) => {
