@@ -23,6 +23,7 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [imgSrc, setImgSrc] = useState(null);
   const [text, setText] = useState('');
+  const [full_text, setfulltext] = useState('');
   useEventListener('onProgressChange', (p) => {
     setProgress(p.percent / 100);
   });
@@ -36,6 +37,13 @@ function App() {
     let reco_text = str.match(/(0?[1-9]|[12]\d|30|31)[^\w\d\r\n:](0?[1-9]|1[0-2])[^\w\d\r\n:](\d{4}|\d{2})/g);
      let reco_time = str.match(/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/)
      let amount = str.match(/^(\d{1,2})(,\d{2})*(,\d{1,3}){1}(\.\d{1,})?$/g)
+
+   
+     var String_3 = reco_text.concat(" " , reco_time);
+
+     setfulltext(String_3)
+
+     console.log("full", String_3)
 
      console.log("time >>",reco_time)
      console.log("amount >>",amount)
