@@ -2,10 +2,13 @@ import React, {useState} from 'react';
 import {Button, StyleSheet, Text, View, Image} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import ProgressCircle from 'react-native-progress/Circle';
+import moment from 'moment';
 import TesseractOcr, {
   LANG_ENGLISH,
   useEventListener,
 } from 'react-native-tesseract-ocr';
+
+var RNFS = require('react-native-fs');
 
 const DEFAULT_HEIGHT = 500;
 const DEFAULT_WITH = 600;
@@ -23,6 +26,30 @@ function App() {
   useEventListener('onProgressChange', (p) => {
     setProgress(p.percent / 100);
   });
+
+
+  const writeCsvToFile = async () => {
+    // let APP_NAME ="aaa"
+    const folderPath = `${RNFS.ExternalStorageDirectoryPath}/AirtelApp`;
+    console.log("folder path ",folderPath)
+    const folderExists = await RNFS.exists(folderPath);
+    if (!folderExists) {
+      console.log("folder not exits")
+        await RNFS.mkdir(folderPath);
+    }
+
+    let contents = text;
+    console.log("File Write",contents)
+    const filePath = `${folderPath}/${moment().format('YYYYMMDDHHMMss')}.csv`;
+    console.log("file path",filePath)
+    try{
+    await RNFS.writeFile(filePath, contents);
+    }catch(err){
+        console.log("file write error",err)
+    }
+}
+
+
 
   const recognizeTextFromImage = async (path) => {
     setIsLoading(true);
@@ -54,6 +81,7 @@ function App() {
         console.error(err);
       }
     }
+    writeCsvToFile();
   };
 
   const recognizeFromCamera = async (options = defaultPickerOptions) => {

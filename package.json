@@ -10,12 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/art": "^1.2.0",
     "react": "16.11.0",
+    "moment": "^2.29.1",
     "react-native": "0.62.2",
+    "react-native-fs": "^2.16.6",
     "react-native-image-crop-picker": "^0.32.2",
     "react-native-progress": "^4.0.3",
-    "react-native-tesseract-ocr": "^2.0.1",
-    "@react-native-community/art": "^1.2.0"
+    "react-native-tesseract-ocr": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.8",
